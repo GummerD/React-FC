@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 function App() {
-  let likes = 0;
+  const [likes, setLikes] = useState(5);
 
   function inc(){
-    likes += 1;
-    console.log(likes);
+    setLikes(likes + 1);
   }
 
   function dec(){
-    likes -= 1;
-    console.log(likes);
+    setLikes(likes - 1);
   }
-  
+
   return (
     <div className="App">
       <h1>{likes}</h1>
