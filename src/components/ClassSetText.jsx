@@ -12,11 +12,9 @@ class ClassSetText extends React.Component {
     }
 
     setVal(new_value){
+        // eslint-disable-next-line react/no-direct-mutation-state
         this.setState({count: this.state.value = new_value })
     }
-
-
-
     render() {
         return (
             <>
