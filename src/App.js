@@ -24,28 +24,35 @@ function App() {
   ]);
 
   const [title, setTitle] = useState('');
-  const bodyInputRef = useRef();
+  const [description, setBody] = useState('');
 
   function addNewPost(event) {
-    event.preventDefault()
-    console.log(title)
-    console.log(bodyInputRef.current.value)
+    event.preventDefault();
 
+    const newPost = {
+      id: Date.now(),
+      title,
+      description
+    };
+
+    setPosts([...posts, newPost]);
+    setTitle('');
+    setBody('');
   }
+  
 
   return (
     <div className="App">
       <form action="">
-        {/**Упрвляемый элемент */}
         <MyInput
           value={title}
           onChange={event => setTitle(event.target.value)}
           type="text"
           placeholder="Название поста"
         />
-        {/**Неупрвляемый элемент */}
         <MyInput
-          ref={bodyInputRef}
+          value={description}
+          onChange={event => setBody(event.target.value)}
           type="text"
           placeholder="Описание поста"
         />
