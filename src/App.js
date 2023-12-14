@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import PostList from "./components/PostList.jsx";
 import './style/App.css';
-import MyButton from "./components/UI/button/MyButton.jsx";
-import MyInput from "./components/UI/input/MyInput.jsx";
+import CreateNewPost from "./components/CreateNewPost.jsx";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -23,41 +22,14 @@ function App() {
     { id: 6, title: "Some title 6", description: "Some description 6" },
   ]);
 
-  const [title, setTitle] = useState('');
-  const [description, setBody] = useState('');
-
-  function addNewPost(event) {
-    event.preventDefault();
-
-    const newPost = {
-      id: Date.now(),
-      title,
-      description
-    };
-
-    setPosts([...posts, newPost]);
-    setTitle('');
-    setBody('');
+  function createPost(newPost){
+    setPosts([...posts, newPost])
   }
-  
+
 
   return (
     <div className="App">
-      <form action="">
-        <MyInput
-          value={title}
-          onChange={event => setTitle(event.target.value)}
-          type="text"
-          placeholder="Название поста"
-        />
-        <MyInput
-          value={description}
-          onChange={event => setBody(event.target.value)}
-          type="text"
-          placeholder="Описание поста"
-        />
-        <MyButton onClick={addNewPost} >Создать пост</MyButton>
-      </form>
+      <CreateNewPost create = {createPost}/>
       <PostList posts={posts} title={'The posts list 1'} />
       <PostList posts={posts_2} title={'The posts list 2'} />
     </div>
