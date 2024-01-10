@@ -3,6 +3,7 @@ import PostList from "./components/PostList.jsx";
 import './style/App.css';
 import CreateNewPost from "./components/CreateNewPost.jsx";
 import MySelect from "./components/UI/select/MySelect.jsx";
+import MyInput from "./components/UI/input/MyInput.jsx";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -15,6 +16,18 @@ function App() {
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  function getSoretedPost (){
+    console.log('Функция работает');
+    if(selectedSort){
+      return [...posts].sort((a,b) => a[selectedSort].localeCompare(b[selectedSort]))
+    }
+    
+    return posts
+  }
+
+  const sortedPosts = getSoretedPost();
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
@@ -26,7 +39,6 @@ function App() {
 
   function sortPost(sort){
     setSelectedSort(sort);
-    setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])));
   }
 
   return (
@@ -34,8 +46,13 @@ function App() {
       <CreateNewPost create={createPost} />
       <hr style={{ margin: "15px 0" }} />
       <div>
+        <MyInput 
+          value = {searchQuery}
+          placeholder = "Поиск..."
+          onChange={e =>setSearchQuery(e.target.value)}
+        />
         <MySelect 
-          value={setSelectedSort}
+          value={selectedSort}
           onChange={sortPost}
           options = {[
             {value: 'title', name: 'По названию'},
@@ -47,7 +64,7 @@ function App() {
       {/**Условная отрисовка */}
       {posts.length !== 0
         ?
-        <PostList deletePost={deletePost} posts={posts} title={'The posts list 1'} />
+        <PostList deletePost={deletePost} posts={sortedPosts} title={'The posts list 1'} />
         :
         <div style={{
           fontSize: '25px',
