@@ -19,14 +19,17 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const sortedPosts = useMemo(()=>{
-
     console.log('Функция работает');
     if(selectedSort){
       return [...posts].sort((a,b) => a[selectedSort].localeCompare(b[selectedSort]))
     } 
     return posts
-
   }, [posts, selectedSort]);
+
+  const soretedAndSearchPosts = useMemo(() =>
+  {
+    return sortedPosts.filter( post => post.title.toLowerCase().includes(searchQuery))
+  }, [sortedPosts, searchQuery]);
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
@@ -61,9 +64,9 @@ function App() {
         />
       </div>
       {/**Условная отрисовка */}
-      {posts.length !== 0
+      {soretedAndSearchPosts.length !== 0
         ?
-        <PostList deletePost={deletePost} posts={sortedPosts} title={'The posts list 1'} />
+        <PostList deletePost={deletePost} posts={soretedAndSearchPosts} title={'The posts list 1'} />
         :
         <div style={{
           fontSize: '25px',
