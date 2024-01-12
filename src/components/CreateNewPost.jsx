@@ -1,7 +1,7 @@
 import React, {useState}from 'react'
 import MyButton from './UI/button/MyButton'
 import MyInput from './UI/input/MyInput'
-const CreateNewPost = ({create}) => {
+const CreateNewPost = ({create, forButton}) => {
 
     const [post, setPost] = useState({
         title: '',

@@ -2,6 +2,8 @@ import React, { useMemo, useRef, useState } from "react";
 import PostList from "./components/PostList.jsx";
 import './style/App.css';
 import CreateNewPost from "./components/CreateNewPost.jsx";
+import MyModal from "./components/UI/MyModal/MyModal.jsx";
+import MyButton from "./components/UI/button/MyButton.jsx";
 
 import PostsFilter from "./components/PostsFilter.jsx";
 
@@ -15,22 +17,24 @@ function App() {
     { id: 6, title: "Some title 6", description: "Some description 6" },
   ]);
 
-  const [filter, setFilter] = useState({sort: '', query:''});
+  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const [visibleModale, setVisibleModal] = useState(false)
 
-  const sortedPosts = useMemo(()=>{
+  const sortedPosts = useMemo(() => {
     console.log('Функция работает');
-    if(filter.sort){
-      return [...posts].sort((a,b) => a[filter.sort].localeCompare(b[filter.sort]))
-    } 
+    if (filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+    }
     return posts
   }, [posts, filter.sort]);
 
-  const soretedAndSearchPosts = useMemo(() =>{
-    return sortedPosts.filter( post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
+  const soretedAndSearchPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
   }, [sortedPosts, filter.query]);
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
+    setVisibleModal(false)
   }
 
   function deletePost(post) {
@@ -40,21 +44,32 @@ function App() {
   return (
     <div className="App">
 
-      <CreateNewPost create={createPost} />
+      <MyButton
+        style = {{marginTop: '30px'}}
+        onClick={() => setVisibleModal(true)}
+      >
+          Создать новый пост
+      </MyButton>
+
+      <MyModal
+        visible = {visibleModale}
+        >
+        <CreateNewPost create={createPost}/>
+      </MyModal>
 
       <hr style={{ margin: "15px 0" }} />
 
-      <PostsFilter 
+      <PostsFilter
         filter={filter}
-        setFilter={setFilter} 
+        setFilter={setFilter}
       />
 
-      <PostList 
-        deletePost={deletePost} 
-        posts={soretedAndSearchPosts} 
-        title={'The posts list 1'} 
+      <PostList
+        deletePost={deletePost}
+        posts={soretedAndSearchPosts}
+        title={'The posts list 1'}
       />
-      
+
     </div>
   );
 }
