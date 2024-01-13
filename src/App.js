@@ -53,6 +53,7 @@ function App() {
 
       <MyModal
         visible = {visibleModale}
+        setVisible={setVisibleModal}
         >
         <CreateNewPost create={createPost}/>
       </MyModal>
