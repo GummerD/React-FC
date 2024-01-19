@@ -15,7 +15,7 @@ export default function PostsFilter({filter, setFilter}) {
           onChange={setSort => setFilter({...filter, sort: setSort})}
           options = {[
             {value: 'title', name: 'По названию'},
-            {value: 'description', name: 'По описанию'}
+            {value: 'body', name: 'По описанию'}
           ]}
           defaultValue='Сортировка'
         />

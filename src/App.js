@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState} from "react";
 import PostList from "./components/PostList.jsx";
 import './style/App.css';
 import CreateNewPost from "./components/CreateNewPost.jsx";
@@ -15,6 +15,11 @@ function App() {
   const [visibleModale, setVisibleModal] = useState(false)
 
   const soretedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
+
+  useEffect(()=>{
+    fetchPost();
+    console.log('Use Effect');
+  }, [filter]);
 
   async function fetchPost(){
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
