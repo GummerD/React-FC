@@ -9,7 +9,7 @@ const PostItem = function ({post, number, deletePost}) {
             <div className="post__content">
                 <strong>{number}.{post.title}</strong>
                 <div>
-                    {post.description}
+                    {post.body}
                 </div>
             </div>
             <div className="post__btns">
