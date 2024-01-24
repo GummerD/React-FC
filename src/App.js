@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PostList from "./components/PostList.jsx";
 import './style/App.css';
 import CreateNewPost from "./components/CreateNewPost.jsx";
@@ -7,24 +7,31 @@ import MyButton from "./components/UI/button/MyButton.jsx";
 import usePosts from "./hooks/usePosts.js"
 import PostsFilter from "./components/PostsFilter.jsx";
 import axios from "axios";
+import PostService from "./API/PostService.js";
+import MyLoader from "./components/UI/Loader/MyLoader.jsx";
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [visibleModale, setVisibleModal] = useState(false)
+  const [isPostLoading, setIsPostLoading] = useState(false)
 
   const soretedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchPost();
     console.log('Use Effect');
   }, [filter]);
 
-  async function fetchPost(){
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    setPosts(response.data);
-    console.log(response.data);
+  async function fetchPost() {
+    setIsPostLoading(true);
+    setTimeout(async ()=>{
+      const allPosts = await PostService.getAllPosts();
+      setPosts(allPosts);
+      setIsPostLoading(false)
+    }, 1000)
+   
   }
 
   function createPost(newPost) {
@@ -39,20 +46,18 @@ function App() {
   return (
     <div className="App">
 
-      <button onClick={fetchPost}>Запрос</button>
-
       <MyButton
-        style = {{marginTop: '30px'}}
+        style={{ marginTop: '30px' }}
         onClick={() => setVisibleModal(true)}
       >
-          Создать новый пост
+        Создать новый пост
       </MyButton>
 
       <MyModal
-        visible = {visibleModale}
+        visible={visibleModale}
         setVisible={setVisibleModal}
-        >
-        <CreateNewPost create={createPost}/>
+      >
+        <CreateNewPost create={createPost} />
       </MyModal>
 
       <hr style={{ margin: "15px 0" }} />
@@ -62,11 +67,19 @@ function App() {
         setFilter={setFilter}
       />
 
-      <PostList
-        deletePost={deletePost}
-        posts={soretedAndSearchPosts}
-        title={'The posts list 1'}
-      />
+      {
+        isPostLoading
+          ? <div style= {{display:'flex', justifyContent:"center", marginTop: '50px'}}>
+              <MyLoader/>
+            </div>
+          : <PostList
+            deletePost={deletePost}
+            posts={soretedAndSearchPosts}
+            title={'The posts list 1'}
+          />
+      }
+
+
 
     </div>
   );
