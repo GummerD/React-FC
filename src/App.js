@@ -6,16 +6,20 @@ import MyModal from "./components/UI/MyModal/MyModal.jsx";
 import MyButton from "./components/UI/button/MyButton.jsx";
 import usePosts from "./hooks/usePosts.js"
 import PostsFilter from "./components/PostsFilter.jsx";
-import axios from "axios";
 import PostService from "./API/PostService.js";
 import MyLoader from "./components/UI/Loader/MyLoader.jsx";
+import useFetching from "./hooks/useFetching.js";
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: '', query: '' });
-  const [visibleModale, setVisibleModal] = useState(false)
-  const [isPostLoading, setIsPostLoading] = useState(false)
+  const [visibleModale, setVisibleModal] = useState(false);
+
+  const [fetchPost, isPostLoading, postError] = useFetching(async () => {
+      const allPosts = await PostService.getAllPosts();
+      setPosts(allPosts);
+  });
 
   const soretedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -23,16 +27,6 @@ function App() {
     fetchPost();
     console.log('Use Effect');
   }, [filter]);
-
-  async function fetchPost() {
-    setIsPostLoading(true);
-    setTimeout(async ()=>{
-      const allPosts = await PostService.getAllPosts();
-      setPosts(allPosts);
-      setIsPostLoading(false)
-    }, 1000)
-   
-  }
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
@@ -66,6 +60,9 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
+
+      {postError &&
+        <div>Произошла ошибка ${postError}</div>}
 
       {
         isPostLoading
