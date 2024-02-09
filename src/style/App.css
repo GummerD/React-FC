@@ -48,3 +48,19 @@
     transform: translateX(-350px);
     transition: all 500ms ease-in;
 }
+
+.pagination_wrapper{
+    margin-top: 15px;
+    display: flex;
+}
+
+.pagination_btn{
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid teal;
+}
+
+.pagination_current {
+    border: 2px solid red;
+    font-weight: bold;
+}
