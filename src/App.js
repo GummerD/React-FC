@@ -74,8 +74,10 @@ function App() {
         setFilter={setFilter}
       />
 
-      {postError &&
-        <div>Произошла ошибка ${postError}</div>}
+      {
+        postError &&
+        <div>Произошла ошибка ${postError}</div>
+      }
 
       {
         isPostLoading
@@ -94,9 +96,6 @@ function App() {
         changePage = {changePage}
         page = {queryParams.page}
       />
-
-     
-
 
     </div>
   );
