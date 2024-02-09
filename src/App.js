@@ -11,6 +11,7 @@ import MyLoader from "./components/UI/Loader/MyLoader.jsx";
 import useFetching from "./hooks/useFetching.js";
 import { getPageCount } from "./utils/pages.js";
 import usePagination from "./hooks/usePagination.js";
+import PaginationOnPage from "./components/UI/pagination/PaginationOnPage.jsx";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -21,7 +22,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryparams] = useState({limit: 10, page: 1});
 
-  const pagesArrayForPagination = usePagination(totalPages);
+  
 
   const [fetchPost, isPostLoading, postError] = useFetching(async () => {
       const response = await PostService.getAllPosts(queryParams.limit, queryParams.page);
@@ -88,18 +89,13 @@ function App() {
           />
       }
 
-      <div className="pagination_wrapper">
-      {
-        pagesArrayForPagination.map(p => 
-          <span
-            onClick={()=>changePage(p)} 
-            key = {p} 
-            className={ queryParams.page === p ? "pagination_btn pagination_current" : "pagination_btn"}>
-            {p}
-          </span>
-        )
-      }
-      </div>
+      <PaginationOnPage
+        totalPages = {totalPages}
+        changePage = {changePage}
+        page = {queryParams.page}
+      />
+
+     
 
 
     </div>
