@@ -6,8 +6,8 @@ export default function Navbar() {
         <div>
             <nav className="navbar">
                 <div className="navbar_links">
-                    <NavLink to="/about" className='link' >Первая страница</NavLink>
-                    <NavLink to="/posts" className='link'>Страница с постами</NavLink>
+                    <NavLink to="/about" className={({isActive})=> isActive ? 'active-link': ''} >Первая страница</NavLink>
+                    <NavLink to="/posts" className={({isActive})=> isActive ? 'active-link': ''}>Страница с постами</NavLink>
                 </div>
             </nav>
             <main>

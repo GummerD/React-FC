@@ -20,15 +20,15 @@
     border-bottom: 5px solid black;
 }
 
-.link {
-    margin: 0px 5px;
-    text-decoration: none;
-}
-
 .navbar_links {
     display: flex;
     justify-content: space-around;
     margin-left: auto;
+}
+
+.navbar_links > a {
+    margin: 0px 5px;
+    text-decoration: none;
 }
 
 .App {
@@ -88,8 +88,10 @@
     font-weight: bold;
 }
 
-.active{
+.active-link{
     color: var(--color-active);
     cursor: default;
-    text-decoration:underline red;
+    color: red;
+    border-bottom: solid ;
+    border-radius: 15%;
 }
