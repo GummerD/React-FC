@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Posts from "./pages/Posts";
 import Notfound from "./pages/Notfound";
 import Navbar from "./components/UI/navbar/Navbar";
+import OnePost from "./pages/OnePost";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route path="/" element={<Navbar />}>
         <Route path="about" element={<About />} />
         <Route path="posts" element={<Posts />} />
+        <Route path="onePost/:id" element={<OnePost />} />
         <Route path="*" element={<Notfound />} />
       </Route>
     </Routes>
