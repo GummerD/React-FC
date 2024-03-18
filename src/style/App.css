@@ -10,6 +10,12 @@
     align-items: center;
 }
 
+main{
+    margin: 0 auto;
+    min-height: 1000px;
+    width: 900px;
+}
+
 .navbar {
     height: 100px;
     width: 100vw;
@@ -98,4 +104,16 @@
     color: red;
     border-bottom: solid ;
     border-radius: 15%;
+}
+
+footer{
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 100px;
+    border-top: solid 5px black;
+    background-color: rgba(169, 173, 161, 0.404);
+}
+
+footer>p{
+    margin: 2.5% 45%;
 }

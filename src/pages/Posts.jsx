@@ -11,6 +11,8 @@ import MyLoader from "../components/UI/Loader/MyLoader.jsx";
 import useFetching from "../hooks/useFetching.js";
 import { getPageCount } from "../utils/pages.js";
 import PaginationOnPage from "../components/UI/pagination/PaginationOnPage.jsx";
+import {Link} from "react-router-dom";
+
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -72,6 +74,8 @@ function Posts() {
         filter={filter}
         setFilter={setFilter}
       />
+
+      <Link to="/posts/editePost">Изменить пост</Link>
 
       {
         postError &&
