@@ -4,7 +4,7 @@ export default function About() {
     return (
         <div>
             <h1>
-                Первая страница приложения с постами..
+                Некая страница для проверик SPA (Single Page Application).
             </h1>
         </div>
     )
